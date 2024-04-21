@@ -3,19 +3,20 @@ const { application } = require('express');
 let mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(()=>console.log("Connected"))
-.catch((err, res)=>console.log("Error"+err))
-const Schema = mongoose.Schema;
-const personSchema = new Schema({
-    name:{type:String, required: true},
-    age:{type:Number},
-    favoriteFoods :{type:[String]}
-})
-
-const Person = mongoose.model('Person',personSchema)
+  .then(() => console.log("Connected"))
+  .catch((err, res) => console.log("Error" + err))
+const personSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  age: Number,
+  favoriteFoods: [String]
+});
+const Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  var document = new Person({ name: 'Abebe', age: 25, favoriteFoods: "Bread" });
+  document.save(function (err, data) {
+  });
+  done(null, document);
 };
 const createManyPeople = (arrayOfPeople, done) => {
   done(null /*, data*/);
