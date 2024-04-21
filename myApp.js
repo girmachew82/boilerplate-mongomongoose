@@ -1,12 +1,15 @@
 require('dotenv').config();
+const { application } = require('express');
+let mongoose = require('mongoose')
 
-
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(()=>console.log("Connected"))
+.catch((err, res)=>console.log("Error"+err))
 let Person;
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
 };
-
 const createManyPeople = (arrayOfPeople, done) => {
   done(null /*, data*/);
 };
