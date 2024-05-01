@@ -17,7 +17,7 @@ const Person = mongoose.model('Person',personSchema)
 
 
 const createAndSavePerson = (done) => {
-  const abebe = new Person({name:"Abebe", age: 25, findEditThenSave:["Bread", "Enjera"]})
+  const abebe = new Person({name:"Abebe", age: 25, favoriteFoods:["Bread", "Enjera"]})
   abebe.save(function(err, data) {
     if(err) return console.log(err)
     done(null, data );
