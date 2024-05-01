@@ -15,7 +15,7 @@ const personSchema = new Schema({
 })
 
 const Person = mongoose.model('Person',personSchema)
-
+/*
 let arrayOfPeople = [
   {
     name:"Abebe",
@@ -29,7 +29,6 @@ const createAndSavePerson = function  (arrayOfPeople, done) {
   abebe.save(function(err, data) {
     if(err) return console.log(err)
     done(null, data );
-  console.log(data)
   })
 
 };
@@ -47,7 +46,6 @@ const findPeopleByName = (personName, done) => {
     if(err)
       console.log(err)
     else{
-      console.log(arrayOfResult)
       done(null , arrayOfResult);
     }
    
@@ -59,7 +57,6 @@ const findOneByFood = (food, done) => {
     if(err)
       console.log(err)
     else{
-      console.log(arrayOfResult)
       done(null , arrayOfResult);
     }
    
@@ -72,7 +69,6 @@ const findPersonById = (personId, done) => {
     if(err)
       console.log(err)
     else{
-      console.log(arrayOfResult)
       done(null , arrayOfResult);
     }
    
@@ -90,7 +86,6 @@ const findEditThenSave = (personId, done) => {
         if(err)
         console.log(err)
       else{
-      console.log(arrayOfResult)
       done(null , arrayOfResult);
       }
     })
@@ -101,11 +96,22 @@ const findEditThenSave = (personId, done) => {
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
 
-  done(null /*, data*/);
+  Person.findOneAndUpdate({name:personName},{age: ageToSet},{new:true}, (err, updateResult) =>{
+    if(err)
+      console.log(err)
+       done(null , updateResult);
+    })
+  
+ 
 };
-
-const removeById = (personId, done) => {
-  done(null /*, data*/);
+*/
+var removeById = function(personId, done) {
+  Person.findByIdAndDelete({_id:personId}, (err, removedDoc) => {
+      if(err) 
+         return console.log(err);
+      done(null, removedDoc);
+    }
+  ); 
 };
 
 const removeManyPeople = (done) => {
@@ -127,13 +133,13 @@ const queryChain = (done) => {
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
 
 exports.PersonModel = Person;
-exports.createAndSavePerson = createAndSavePerson;
-exports.findPeopleByName = findPeopleByName;
-exports.findOneByFood = findOneByFood;
-exports.findPersonById = findPersonById;
-exports.findEditThenSave = findEditThenSave;
-exports.findAndUpdate = findAndUpdate;
-exports.createManyPeople = createManyPeople;
+//exports.createAndSavePerson = createAndSavePerson;
+//exports.findPeopleByName = findPeopleByName;
+//exports.findOneByFood = findOneByFood;
+//exports.findPersonById = findPersonById;
+//exports.findEditThenSave = findEditThenSave;
+//exports.findAndUpdate = findAndUpdate;
+//exports.createManyPeople = createManyPeople;
 exports.removeById = removeById;
 exports.removeManyPeople = removeManyPeople;
 exports.queryChain = queryChain;
