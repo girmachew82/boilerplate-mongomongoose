@@ -2,7 +2,7 @@ require('dotenv').config();
 const { application } = require('express');
 let mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("Connected"))
 .catch((err, res)=>console.log("Error"+err))
 
@@ -14,6 +14,8 @@ const personSchema = new Schema({
 })
 
 const Person = mongoose.model('Person',personSchema)
+
+
 const createAndSavePerson = (done) => {
   const abebe = new Person({name:"Abebe", age: 25, findEditThenSave:["Bread", "Enjera"]})
   abebe.save(function(err, data) {
@@ -22,8 +24,12 @@ const createAndSavePerson = (done) => {
   })
 
 };
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+const createManyPeople = function(arrayOfPeople, done) {
+      Person.create(arrayOfPeople,function (err, people) {
+      if (err) return console.log(err);
+      done(null, people);
+    });
+  
 };
 
 const findPeopleByName = (personName, done) => {
