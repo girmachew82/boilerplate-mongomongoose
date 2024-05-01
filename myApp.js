@@ -46,13 +46,24 @@ const findPeopleByName = (personName, done) => {
   Person.find({name:personName}, (err, arrayOfResult) =>{
     if(err)
       console.log(err)
-      done(null , arrayOfResult);
+    else{
       console.log(arrayOfResult)
+      done(null , arrayOfResult);
+    }
+   
   })
 };
 
 const findOneByFood = (food, done) => {
-
+  Person.findOne({favoriteFoods:food}, (err, arrayOfResult) =>{
+    if(err)
+      console.log(err)
+    else{
+      console.log(arrayOfResult)
+      done(null , arrayOfResult);
+    }
+   
+  })
 };
 
 
