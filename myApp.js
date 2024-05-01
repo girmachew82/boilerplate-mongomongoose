@@ -7,6 +7,7 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((err, res)=>console.log("Error"+err))
 
 const Schema = mongoose.Schema;
+
 const personSchema = new Schema({
     name:{type:String, required: true},
     age:{type:Number},
@@ -21,6 +22,7 @@ const createAndSavePerson = (done) => {
   abebe.save(function(err, data) {
     if(err) return console.log(err)
     done(null, data );
+  console.log(data)
   })
 
 };
