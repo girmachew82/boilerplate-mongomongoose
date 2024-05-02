@@ -101,18 +101,18 @@ router.get("/create-and-save-person", function (req, res, next) {
         return next(err);
       }
       res.json(pers);
-      //pers.remove();
+      pers.remove();
     });
   });
 });
 
 const createPeople = require("./myApp.js").createManyPeople;
 router.post("/create-many-people", function (req, res, next) {
-  /*Person.remove({}, function (err) {
+  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }
-    */
+    
     // in case of incorrect function use wait timeout then respond
     let t = setTimeout(() => {
       next({ message: "timeout" });
@@ -131,10 +131,10 @@ router.post("/create-many-people", function (req, res, next) {
           return next(err);
         }
         res.json(pers);
-        //Person.remove().exec();
+        Person.remove().exec();
       });
     });
-  //});
+  });
 });
 
 const findByName = require("./myApp.js").findPeopleByName;
@@ -156,7 +156,7 @@ router.post("/find-all-by-name", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      //Person.remove().exec();
+      Person.remove().exec();
     });
   });
 });
@@ -181,7 +181,7 @@ router.post("/find-one-by-food", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      //p.remove();
+      p.remove();
     });
   });
 });
@@ -206,7 +206,7 @@ router.get("/find-by-id", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      //p.remove();
+      p.remove();
     });
   });
 });
@@ -262,7 +262,7 @@ router.post("/find-one-update", function (req, res, next) {
           return next({ message: "Missing callback argument" });
         }
         res.json(data);
-        //p.remove();
+        p.remove();
       });
     } catch (e) {
       console.log(e);
@@ -273,12 +273,12 @@ router.post("/find-one-update", function (req, res, next) {
 
 const removeOne = require("./myApp.js").removeById;
 router.post("/remove-one-person", function (req, res, next) {
- /*
+ 
  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }
-    */
+    
     let t = setTimeout(() => {
       next({ message: "timeout" });
     }, TIMEOUT);
@@ -313,16 +313,16 @@ router.post("/remove-one-person", function (req, res, next) {
         return next(e);
       }
     });
-  //});
+  });
 });
 
 const removeMany = require("./myApp.js").removeManyPeople;
 router.post("/remove-many-people", function (req, res, next) {
-  /*Person.remove({}, function (err) {
+  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }
-    */
+    
     let t = setTimeout(() => {
       next({ message: "timeout" });
     }, TIMEOUT);
@@ -331,7 +331,7 @@ router.post("/remove-many-people", function (req, res, next) {
         return next(err);
       }
       try {
-        /*
+        
         removeMany(function (err, data) {
           clearTimeout(t);
           if (err) {
@@ -361,13 +361,13 @@ router.post("/remove-many-people", function (req, res, next) {
             });
           });
         });
-        */
+        
       } catch (e) {
         console.log(e);
         return next(e);
       }
     });
-  //});
+  });
 });
 
 const chain = require("./myApp.js").queryChain;
@@ -375,7 +375,7 @@ router.post("/query-tools", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  /*
+  
   Person.remove({}, function (err) {
     if (err) {
       return next(err);
@@ -402,7 +402,7 @@ router.post("/query-tools", function (req, res, next) {
       }
     });
   });
-  */
+  
 });
 
 app.use("/_api", enableCORS, router);

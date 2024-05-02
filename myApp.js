@@ -96,6 +96,7 @@ const findEditThenSave = (personId, done) => {
 };
 
 const findAndUpdate = (personName, done) => {
+  console.log("UpdATE")
   const ageToSet = 20;
 
   Person.findOneAndUpdate({name:personName},{age: ageToSet},{new:true}, (err, updateResult) =>{
@@ -106,6 +107,7 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) =>{
+
   Person.findOneAndRemove({_id:personId}, (err, removedPerson) => {
       if(err) 
          return console.log(err);
@@ -125,8 +127,17 @@ const removeManyPeople = (done) => {
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
+  Person.find({favoriteFoods:foodToSearch})
+  .sort({name:'asc'})
+  .limit(2)
+  .select('-age')
+  .exec((err, searchResult)=>{
+   if(err)
+   console.log(err)
+  else
+  done(null , searchResult);
+  })
 
-  done(null /*, data*/);
 };
 
 /** **Well Done !!**
@@ -136,13 +147,13 @@ const queryChain = (done) => {
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
 
 exports.PersonModel = Person;
-//exports.createAndSavePerson = createAndSavePerson;
-//exports.findPeopleByName = findPeopleByName;
-//exports.findOneByFood = findOneByFood;
-//exports.findPersonById = findPersonById;
-//exports.findEditThenSave = findEditThenSave;
-//exports.findAndUpdate = findAndUpdate;
-//exports.createManyPeople = createManyPeople;
+exports.createAndSavePerson = createAndSavePerson;
+exports.findPeopleByName = findPeopleByName;
+exports.findOneByFood = findOneByFood;
+exports.findPersonById = findPersonById;
+exports.findEditThenSave = findEditThenSave;
+exports.findAndUpdate = findAndUpdate;
+exports.createManyPeople = createManyPeople;
 exports.removeById = removeById;
 exports.removeManyPeople = removeManyPeople;
 exports.queryChain = queryChain;
