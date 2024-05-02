@@ -115,14 +115,12 @@ const removeById = (personId, done) =>{
 };
 
 const removeManyPeople = (done) => {
+  console.log('Delete many')
   const nameToRemove = "Mary";
-  Person.remove({name:nameToRemove}, (err, JSONStatus)=>{
-    if(err)
-    console.log(err)
-  else
-    done(null , JSONStatus);
+  Person.remove({name: nameToRemove}, (err, response) => {
+    if(err) return console.log(err);
+    done(null, response);
   })
- 
 };
 
 const queryChain = (done) => {
