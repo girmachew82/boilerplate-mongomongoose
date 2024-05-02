@@ -5,7 +5,9 @@ let mongoose = require('mongoose')
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>console.log("Connected"))
 .catch((err, res)=>console.log("Error"+err))
-
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+console.log("Hello")
 const Schema = mongoose.Schema;
 
 const personSchema = new Schema({
@@ -15,7 +17,7 @@ const personSchema = new Schema({
 })
 
 const Person = mongoose.model('Person',personSchema)
-/*
+
 let arrayOfPeople = [
   {
     name:"Abebe",
@@ -101,23 +103,25 @@ const findAndUpdate = (personName, done) => {
       console.log(err)
        done(null , updateResult);
     })
-  
- 
 };
-*/
-var removeById = function(personId, done) {
-  Person.findByIdAndRemove({_id:personId}, (err, removedDoc) => {
+
+const removeById = (personId, done) =>{
+  Person.findOneAndRemove({_id:personId}, (err, removedPerson) => {
       if(err) 
          return console.log(err);
-      done(null, removedDoc);
+      done(null, removedPerson);
     }
   ); 
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  Person.remove({name:nameToRemove}, (err, removeMeny)=>{
+    if(err)
+    console.log(err)
+    done(null , removeMeny);
+  })
+ 
 };
 
 const queryChain = (done) => {
